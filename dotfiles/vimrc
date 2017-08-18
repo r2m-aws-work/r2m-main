@@ -1,0 +1,82 @@
+" It's VIM, not VI
+set nocompatible
+
+" The basic settings
+set showmode
+set nu
+set ts=4
+filetype plugin indent on
+syntax on
+set backspace=indent,eol,start
+set lazyredraw
+set ff=unix
+set shiftwidth=4
+set tabstop=4
+let mapleader="," 
+
+" Disable all the noises
+" set eb? vb? t_vb?
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
+
+" If idle for too long, write and quit all files
+set updatetime=3600000     " Check every hour                                                                                                                                                                 
+autocmd! CursorHold,CursorHoldI * wqall!
+
+" If open for more than 30 sec, close the vault file .vop
+au BufEnter *.vop setlocal updatetime=30000
+autocmd! CursorHold,CursorHoldI *.vop wq!
+
+" Highlight things
+" Highlight trailing whitespace
+" highlight WhitespaceEOL ctermbg=DarkYellow guibg=DarkYellow
+" match WhitespaceEOL /\s\+$/
+set cul       
+hi CursorLine term=none cterm=none ctermbg=LightGray
+
+" Folding settings useful for outlining
+set foldenable
+set foldlevelstart=10
+set foldnestmax=10
+nnoremap <space> za
+set foldmethod=indent
+" vim: set fdm=marker: " Treat comments as folds
+" au BufEnter *.otl setlocal tabstop=2
+" au BufEnter *.otl setlocal shiftwidth=2
+
+" Checkboxes settings useful for outlining and todo list
+nnoremap <silent> <leader><leader> <Esc>:s/^\(\s*\)/\1[_] /<CR><Esc>
+vnoremap <silent> <leader><leader> <Esc>:s/^\(\s*\)/\1[_] /<CR><Esc>
+nnoremap <silent> <leader>m <Esc>:s/\[_\]/[X]/<CR><Esc>
+vnoremap <silent> <leader>m <Esc>:s/\[_\]/[X]/<CR><Esc>
+nnoremap <silent> <leader>p <Esc>:s/^\(\s*\)/\1[_] programming lesson for Clint/<CR><Esc>
+vnoremap <silent> <leader>p <Esc>:s/^\(\s*\)/\1[_] programming lesson for Clint/<CR><Esc>
+nnoremap <silent> <leader>j :%!jq .<CR><Esc>
+vnoremap <silent> <leader>j :%!jq .<CR><Esc>
+nnoremap <silent> <leader>J :%!jq . -c<CR><Esc>
+vnoremap <silent> <leader>J :%!jq . -c<CR><Esc>
+
+" Stuff to make it easy to test compile Java code
+command VTC :! javac -cp ".:../lib" -d ~/tmp -Xlint:none % 2>~/tmp/err.log 
+nmap <f1> :VTC
+:autocmd BufWritePre,BufRead *.java :normal gg=G
+:autocmd BufNewFile * :write
+
+" Stuff to easily comment out lines of code based on filetype
+:autocmd FileType javascript nnoremap <buffer> <leader>c I//<esc>
+:autocmd FileType java       nnoremap <buffer> <leader>c I//<esc>
+:autocmd FileType python     nnoremap <buffer> <leader>c I#<esc>
+:autocmd FileType sh         nnoremap <buffer> <leader>c I#<esc>
+
+" set nocompatible
+" syntax enable "enable syntax highlighting 
+" filetype on "enable file type detection
+" filetype plugin on 
+" filetype indent on 
+
+" Stuff that does not yet work
+" au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+" au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
+
+" Check this out for more and better vim tricks
+" https://dougblack.io/words/a-good-vimrc.html#fold
