@@ -1,0 +1,62 @@
+export PROMPT_COMMAND='if [ "$(id -u)" -ne 0 ]; then echo "$(date "+%Y-%m-%d.%H:%M:%S") $(pwd) $(history 1)" >> ~/.logs/bash-history-$(date "+%Y-%m-%d").log; fi'
+alias history-ts='tail -50 ~/.logs/bash-history-$(date "+%Y-%m-%d").log'
+
+JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_73.jdk/Contents/Home
+export JAVA_HOME
+
+GRADLE_HOME=/usr/local/Cellar/gradle/3.4/
+export GRADLE_HOME
+
+alias lsd='ls -l |grep ^d'
+alias lsp='~/bin/lsPretty.sh'
+alias lsf='~/bin/lsFiles.sh'
+alias lsc='~/bin/lsCode.sh'
+alias devl='cd ~/devl'
+alias stuff='cd ~/devl/UltraTinyWebServer/stuff/'
+alias mkPrj='. ~/bin/mkPrj.sh'
+alias mkmake='. ~/bin/mkmake.sh'
+alias budget='cd ~/devl/Budget'
+alias vimr='open -a vimr'
+alias openPortal='~/bin/openPortal.sh'
+alias doco='cd ~/doco'
+alias myMan='~/bin/myMan.sh'
+alias needsDoco='~/bin/needsDoco.sh'
+alias awsStuff='cd ~/devl/aws_ssh'
+alias openSafari='. ~/bin/openSafari.sh'
+alias yed='$JAVA_HOME/bin/java -jar /Users/rmcclure/apps/yed/yed-3.15.0.2/yed.jar &'
+alias jq='~/bin/jq-osx-amd64'
+alias dockerUp='eval "$(docker-machine env default)"'
+alias saveterm='. ~/bin/saveTermInfo.sh'
+alias Vim="vim `ls -t | head -1`i +$"
+alias findbig="find . -type f -exec ls -s {} \; | sort -n -r | head -5"
+alias cls='clear;ls'
+
+alias pushToMyCloud='~/bin/pushToMyCloud.sh'
+
+IS_BIN_IN_PATH=`echo $PATH |grep -c rmcclure.bin`
+if [[ $IS_BIN_IN_PATH -lt 1 ]];then
+	export PATH="$PATH:/Users/rmcclure/bin"
+fi
+
+export PATH="$PATH:/Users/rmcclure/apps/apache-maven-3.3.9/bin"
+export PATH="$PATH:/usr/local/go/bin"
+export PATH="$PATH:/usr/local/Cellar/gradle/3.3/bin/"
+
+alias myAWS='. ~/bin/goAWS.sh'
+alias mycloud='. ~/bin/goAWS.sh'
+alias goaws='. ~/bin/goAWS.sh'
+#alias doh='. ~/bin/goAWS.sh'
+
+doh ()
+{
+	. ~/bin/goAWS.sh ${1:20}
+}
+alias addStdRules='. ~/devl/aws_ssh/addStdRules.sh'
+alias fmtJavaSrc='. ~/bin/fmtJavaSrc.sh'
+alias zoomURL='. ~/bin/zoomURL.sh'
+alias findNewest='find . -type f -t {} \;|sort -n |tail -20'
+alias goAppleScriptEditor='. ~/bin/goAppleScriptEditor.sh'
+#alias lsof='sudo lsof -Pni4 | grep LISTEN'
+alias jq='~/bin/jq-osx-amd64'
+alias ccf='cd /Users/rmcclure/devl/cook-cloud-framework'
+alias dock='~/bin/dockerTermCmd.sh'
